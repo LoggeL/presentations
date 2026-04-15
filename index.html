@@ -3,87 +3,214 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🐾 Tier-Welt | Entdecke 6 faszinierende Tiere</title>
+<title>Welt-Entdeckungen | Tiere & Sportarten</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
-.hero{text-align:center;padding:60px 20px 40px;background:linear-gradient(135deg,#1e293b 0%,#0f172a 50%,#1e293b 100%)}
-.hero h1{font-size:2.8rem;margin-bottom:8px;background:linear-gradient(135deg,#60a5fa,#a78bfa,#f472b6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero p{font-size:1.1rem;color:#94a3b8;max-width:600px;margin:0 auto}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:24px;max-width:1200px;margin:40px auto;padding:0 24px}
-.card{background:#1e293b;border-radius:16px;overflow:hidden;cursor:pointer;transition:transform .25s,box-shadow .25s;border:1px solid #334155}
-.card:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(0,0,0,.4)}
-.card-emoji{font-size:4rem;padding:32px 0 16px;text-align:center;background:var(--card-gradient)}
-.card-body{padding:24px}
-.card-body h2{font-size:1.5rem;margin-bottom:8px;color:#f1f5f9}
-.card-body p{color:#94a3b8;line-height:1.6;font-size:.95rem}
-.card-tag{display:inline-block;padding:4px 12px;border-radius:20px;font-size:.8rem;margin-top:12px;background:var(--tag-bg);color:var(--tag-color)}
-footer{text-align:center;padding:40px;color:#475569;font-size:.85rem}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:#0a0e1a;color:#e2e8f0;min-height:100vh}
+.hero{text-align:center;padding:60px 20px 30px;background:linear-gradient(180deg,rgba(99,102,241,.08) 0%,transparent 100%)}
+.hero h1{font-size:2.8rem;font-weight:800;margin-bottom:8px;background:linear-gradient(135deg,#60a5fa,#a78bfa,#f472b6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-.5px}
+.hero p{font-size:1.05rem;color:#64748b;max-width:600px;margin:0 auto}
+.tabs{display:flex;justify-content:center;gap:8px;margin:32px auto 0;max-width:420px;padding:0 20px}
+.tab{flex:1;padding:14px 20px;border:1px solid rgba(255,255,255,.08);border-radius:14px;background:rgba(30,41,59,.4);color:#94a3b8;font-size:1rem;font-weight:600;cursor:pointer;text-align:center;transition:all .3s;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.tab:hover{background:rgba(30,41,59,.6);color:#e2e8f0}
+.tab.active{background:linear-gradient(135deg,rgba(99,102,241,.2),rgba(139,92,246,.15));border-color:rgba(139,92,246,.3);color:#e2e8f0;box-shadow:0 0 20px rgba(139,92,246,.15)}
+.section{display:none;animation:fadeIn .4s ease}
+.section.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.section-title{text-align:center;padding:30px 20px 10px;font-size:1.2rem;font-weight:600;color:#64748b}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px;max-width:1200px;margin:20px auto;padding:0 24px 40px}
+.card{position:relative;background:rgba(30,41,59,.45);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-radius:20px;overflow:hidden;cursor:pointer;transition:all .3s cubic-bezier(.4,0,.2,1);border:1px solid rgba(255,255,255,.06);box-shadow:0 4px 24px rgba(0,0,0,.2)}
+.card:hover{transform:translateY(-8px) scale(1.02);box-shadow:0 20px 50px rgba(0,0,0,.4);border-color:var(--accent)33}
+.card-glow{position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,var(--accent)08 0%,transparent 50%);opacity:0;transition:opacity .4s;pointer-events:none}
+.card:hover .card-glow{opacity:1}
+.card-emoji{font-size:3.5rem;padding:28px 0 12px;text-align:center;background:linear-gradient(135deg,var(--c1),var(--c2));position:relative}
+.card-body{padding:20px 24px 24px}
+.card-body h2{font-size:1.4rem;font-weight:700;margin-bottom:8px;color:#f1f5f9}
+.card-body p{color:#94a3b8;line-height:1.6;font-size:.92rem}
+.card-tag{display:inline-block;padding:5px 14px;border-radius:20px;font-size:.78rem;margin-top:14px;background:var(--c2);color:var(--accent-light);font-weight:600;letter-spacing:.3px}
+footer{text-align:center;padding:40px;color:#334155;font-size:.82rem}
+@media(max-width:600px){.grid{grid-template-columns:1fr}.hero h1{font-size:2rem}}
 </style>
 </head>
 <body>
 <div class="hero">
-<h1>🐾 Tier-Welt</h1>
-<p>6 faszinierende Tiere — von der Savanne bis zum Ozean. Klicke auf eine Karte, um die Präsentation zu starten!</p>
+<h1>Welt-Entdeckungen</h1>
+<p>Tiere & Sportarten - interaktive Praesentationen mit Bildern, Fakten und Fun Facts. Klicke auf eine Karte!</p>
 </div>
+<div class="tabs">
+<div class="tab active" onclick="switchTab('animals')">Tiere</div>
+<div class="tab" onclick="switchTab('sports')">Sportarten</div>
+</div>
+<div class="section active" id="section-animals">
+<div class="section-title">6 faszinierende Tiere - von der Savanne bis zum Ozean</div>
 <div class="grid">
-
-<div class="card" onclick="location.href='braunbaer.html'" style="--card-gradient:linear-gradient(135deg,#14532d,#166534);--tag-bg:#166534;--tag-color:#86efac">
+<div class="card" onclick="location.href='braunbaer.html'" style="--accent:#22c55e;--accent-light:#86efac;--c1:#14532d;--c2:#166534">
+<div class="card-glow"></div>
 <div class="card-emoji">🐻</div>
 <div class="card-body">
-<h2>Braunbär</h2>
-<p>Der König des Waldes — bis zu 600 kg Muskeln und trotzdem ein Meister im Lachsfischen.</p>
+<h2>Braunbaer</h2>
+<p>Der Koenig des Waldes - bis zu 600 kg Muskeln und trotzdem ein Meister im Lachsfischen.</p>
 <span class="card-tag">🌲 Wald / Europa & Nordamerika</span>
 </div>
 </div>
-
-<div class="card" onclick="location.href='weisser_hai.html'" style="--card-gradient:linear-gradient(135deg,#0c4a6e,#0369a1);--tag-bg:#0369a1;--tag-color:#7dd3fc">
+<div class="card" onclick="location.href='weisser_hai.html'" style="--accent:#0ea5e9;--accent-light:#7dd3fc;--c1:#0c4a6e;--c2:#0369a1">
+<div class="card-glow"></div>
 <div class="card-emoji">🦈</div>
 <div class="card-body">
-<h2>Weißer Hai</h2>
-<p>Das perfekte Raubtier der Ozeane — 300 Zähne, elektromagnetische Sensoren und bis zu 7 Meter lang.</p>
+<h2>Weisser Hai</h2>
+<p>Das perfekte Raubtier der Ozeane - 300 Zaehne, elektromagnetische Sensoren und bis zu 7 Meter lang.</p>
 <span class="card-tag">🌊 Ozean / Weltweit</span>
 </div>
 </div>
-
-<div class="card" onclick="location.href='koenigskobra.html'" style="--card-gradient:linear-gradient(135deg,#78350f,#92400e);--tag-bg:#92400e;--tag-color:#fbbf24">
+<div class="card" onclick="location.href='koenigskobra.html'" style="--accent:#eab308;--accent-light:#fbbf24;--c1:#78350f;--c2:#92400e">
+<div class="card-glow"></div>
 <div class="card-emoji">🐍</div>
 <div class="card-body">
-<h2>Königskobra</h2>
-<p>Der längste Giftschlange der Welt — ihr Gift kann einen Elefanten töten.</p>
-<span class="card-tag">🏜️ Dschungel / Südostasien</span>
+<h2>Koenigskobra</h2>
+<p>Der laengste Giftschlange der Welt - ihr Gift kann einen Elefanten toeten.</p>
+<span class="card-tag">🏜️ Dschungel / Suedostasien</span>
 </div>
 </div>
-
-<div class="card" onclick="location.href='kaiserpinguin.html'" style="--card-gradient:linear-gradient(135deg,#1e3a5f,#2563eb);--tag-bg:#1e3a5f;--tag-color:#bfdbfe">
+<div class="card" onclick="location.href='kaiserpinguin.html'" style="--accent:#3b82f6;--accent-light:#bfdbfe;--c1:#1e3a5f;--c2:#2563eb">
+<div class="card-glow"></div>
 <div class="card-emoji">🐧</div>
 <div class="card-body">
 <h2>Kaiserpinguin</h2>
-<p>Der größte Pinguin — brütet bei -60°C im antarktischen Winter. Väter tragen das Ei 65 Tage auf den Füßen.</p>
+<p>Der groesste Pinguin - bruetet bei -60C im antarktischen Winter.</p>
 <span class="card-tag">❄️ Antarktis</span>
 </div>
 </div>
-
-<div class="card" onclick="location.href='loewe.html'" style="--card-gradient:linear-gradient(135deg,#713f12,#a16207);--tag-bg:#a16207;--tag-color:#fde68a">
+<div class="card" onclick="location.href='loewe.html'" style="--accent:#f59e0b;--accent-light:#fde68a;--c1:#713f12;--c2:#a16207">
+<div class="card-glow"></div>
 <div class="card-emoji">🦁</div>
 <div class="card-body">
-<h2>Löwe</h2>
-<p>Der König der Tiere — das einzige Katzen-Geschlecht, das in Rudeln lebt. Brüllen ist bis 8 km hörbar.</p>
+<h2>Loewe</h2>
+<p>Der Koenig der Tiere - das einzige Katzen-Geschlecht, das in Rudeln lebt.</p>
 <span class="card-tag">🌾 Savanne / Afrika</span>
 </div>
 </div>
-
-<div class="card" onclick="location.href='pfeilgiftfrosch.html'" style="--card-gradient:linear-gradient(135deg,#064e3b,#059669);--tag-bg:#059669;--tag-color:#6ee7b7">
+<div class="card" onclick="location.href='pfeilgiftfrosch.html'" style="--accent:#10b981;--accent-light:#6ee7b7;--c1:#064e3b;--c2:#059669">
+<div class="card-glow"></div>
 <div class="card-emoji">🐸</div>
 <div class="card-body">
 <h2>Pfeilgiftfrosch</h2>
-<p>Klein aber extrem giftig — ein einziger Frosch hat genug Gift für 10 Menschen. Warnfarben als Überlebensstrategie.</p>
-<span class="card-tag">🌴 Regenwald / Südamerika</span>
+<p>Klein aber extrem giftig - ein einziger Frosch hat genug Gift fuer 10 Menschen.</p>
+<span class="card-tag">🌴 Regenwald / Suedamerika</span>
 </div>
 </div>
-
 </div>
-<footer>Tier-Welt — Erstellt von Tobias 🐾 | Daten: IUCN, WWF, Wikipedia</footer>
+</div>
+<div class="section" id="section-sports">
+<div class="section-title">10 beliebteste Sportarten der Welt - interaktiv entdecken</div>
+<div class="grid">
+<div class="card" onclick="location.href='fussball.html'" style="--accent:#22c55e;--accent-light:#86efac;--c1:#14532d;--c2:#166534">
+<div class="card-glow"></div>
+<div class="card-emoji">⚽</div>
+<div class="card-body">
+<h2>Fußball</h2>
+<p>3,5 Milliarden Fans - die Nummer 1 der Welt. Von der Strasse bis zum WM-Finale.</p>
+<span class="card-tag">🌍 Weltweit</span>
+</div>
+</div>
+<div class="card" onclick="location.href='basketball.html'" style="--accent:#f97316;--accent-light:#fdba74;--c1:#7c2d12;--c2:#c2410c">
+<div class="card-glow"></div>
+<div class="card-emoji">🏀</div>
+<div class="card-body">
+<h2>Basketball</h2>
+<p>Schnell, athletisch, spektakulaer - 610 Millionen Spieler weltweit.</p>
+<span class="card-tag">🇺🇸 USA & Global</span>
+</div>
+</div>
+<div class="card" onclick="location.href='cricket.html'" style="--accent:#3b82f6;--accent-light:#93c5fd;--c1:#1e3a5f;--c2:#1e40af">
+<div class="card-glow"></div>
+<div class="card-emoji">🏏</div>
+<div class="card-body">
+<h2>Cricket</h2>
+<p>2,5 Milliarden Fans - in Indien ist es Religion, Wissenschaft und Kunst zugleich.</p>
+<span class="card-tag">🇮🇳 Indien & Commonwealth</span>
+</div>
+</div>
+<div class="card" onclick="location.href='american_football.html'" style="--accent:#a78bfa;--accent-light:#c4b5fd;--c1:#3b0764;--c2:#6d28d9">
+<div class="card-glow"></div>
+<div class="card-emoji">🏈</div>
+<div class="card-body">
+<h2>American Football</h2>
+<p>Taktik, Kraft und Spektakel - der Super Bowl ist das groesste TV-Event der Welt.</p>
+<span class="card-tag">🇺🇸 USA</span>
+</div>
+</div>
+<div class="card" onclick="location.href='tennis.html'" style="--accent:#10b981;--accent-light:#6ee7b7;--c1:#064e3b;--c2:#059669">
+<div class="card-glow"></div>
+<div class="card-emoji">🎾</div>
+<div class="card-body">
+<h2>Tennis</h2>
+<p>Einzelsport pur - Grand-Slam-Turniere ziehen Hunderte Millionen Zuschauer.</p>
+<span class="card-tag">🌍 Weltweit</span>
+</div>
+</div>
+<div class="card" onclick="location.href='volleyball.html'" style="--accent:#f59e0b;--accent-light:#fde68a;--c1:#713f12;--c2:#d97706">
+<div class="card-glow"></div>
+<div class="card-emoji">🏐</div>
+<div class="card-body">
+<h2>Volleyball</h2>
+<p>800 Millionen Spieler - am Strand, in der Halle, ueberall wo es Spass macht.</p>
+<span class="card-tag">🌍 Weltweit</span>
+</div>
+</div>
+<div class="card" onclick="location.href='tischtennis.html'" style="--accent:#ef4444;--accent-light:#fca5a5;--c1:#7f1d1d;--c2:#dc2626">
+<div class="card-glow"></div>
+<div class="card-emoji">🏓</div>
+<div class="card-body">
+<h2>Tischtennis</h2>
+<p>300 Millionen Spieler - der schnellste Ballsport der Welt mit 180 km/h.</p>
+<span class="card-tag">🇨🇳 China & Global</span>
+</div>
+</div>
+<div class="card" onclick="location.href='skifahren.html'" style="--accent:#38bdf8;--accent-light:#bae6fd;--c1:#0c4a6e;--c2:#0284c7">
+<div class="card-glow"></div>
+<div class="card-emoji">🎿</div>
+<div class="card-body">
+<h2>Skifahren</h2>
+<p>Von Olympia bis zum Hobby-Pisten-Cruiser - 400 Millionen Wintersport-Fans.</p>
+<span class="card-tag">❄️ Alpen & Global</span>
+</div>
+</div>
+<div class="card" onclick="location.href='boxen.html'" style="--accent:#ef4444;--accent-light:#fca5a5;--c1:#4a1d0a;--c2:#b91c1c">
+<div class="card-glow"></div>
+<div class="card-emoji">🥊</div>
+<div class="card-body">
+<h2>Boxen</h2>
+<p>Der edle Kunstsport - von Muhammad Ali bis Tyson Fury, seit 6.000 Jahren.</p>
+<span class="card-tag">🌍 Weltweit</span>
+</div>
+</div>
+<div class="card" onclick="location.href='rugby.html'" style="--accent:#14b8a6;--accent-light:#5eead4;--c1:#134e4a;--c2:#0d9488">
+<div class="card-glow"></div>
+<div class="card-emoji">🏉</div>
+<div class="card-body">
+<h2>Rugby</h2>
+<p>Haerte, Respekt, Gemeinschaft - 410 Millionen Fans weltweit.</p>
+<span class="card-tag">🌍 UK & Suedhemisphaere</span>
+</div>
+</div>
+</div>
+</div>
+<footer>Welt-Entdeckungen | Bilder: Unsplash | Daten: Wikipedia, IUCN, FIFA, IOC</footer>
+<script>
+function switchTab(tab){
+document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+if(tab==='animals'){
+document.querySelectorAll('.tab')[0].classList.add('active');
+document.getElementById('section-animals').classList.add('active');
+} else {
+document.querySelectorAll('.tab')[1].classList.add('active');
+document.getElementById('section-sports').classList.add('active');
+}
+window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
 </body>
 </html>
-
