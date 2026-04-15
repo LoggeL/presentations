@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🐧 Kaiserpinguin | Tier-Welt</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#0f172a;color:#e2e8f0;overflow-x:hidden;min-height:100vh}
+.slide-container{width:100%;min-height:100vh;display:flex;flex-direction:column}
+.header-bar{height:6px;background:linear-gradient(135deg,#1e3a5f,#2563eb)}
+.slide{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:60px 40px 120px;position:relative;min-height:calc(100vh - 6px)}
+.slide-bg{position:absolute;inset:0;background:linear-gradient(135deg,#1e3a5f,#2563eb);opacity:.12}
+.slide-content{position:relative;z-index:1;max-width:800px;width:100%;text-align:center}
+.slide-content h1{font-size:2.4rem;margin-bottom:16px;color:#bfdbfe}
+.slide-content .latin{font-style:italic;color:#94a3b8;font-size:1.15rem;margin-bottom:12px}
+.slide-content .tagline{font-size:1.4rem;color:#cbd5e1}
+.slide-content ul{text-align:left;list-style:none;max-width:720px;margin:0 auto}
+.slide-content li{padding:12px 0;font-size:1.05rem;line-height:1.7;border-bottom:1px solid rgba(30,41,59,.6)}
+.slide-content li::before{content:'▸ ';color:#3b82f6;font-weight:bold}
+.nav{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:16px 32px;background:rgba(30,41,59,.95);border-top:1px solid #334155;backdrop-filter:blur(12px);z-index:50}
+.nav button{background:#3b82f6;color:#0f172a;border:none;padding:12px 28px;border-radius:10px;font-size:1rem;cursor:pointer;font-weight:700;transition:all .2s}
+.nav button:hover:not(:disabled){transform:scale(1.05)}
+.nav button:disabled{opacity:.25;cursor:default}
+.counter{color:#94a3b8;font-size:.9rem}
+.back-link{position:fixed;top:20px;left:20px;z-index:10;color:#bfdbfe;text-decoration:none;font-size:.95rem;background:rgba(15,23,42,.85);padding:10px 18px;border-radius:10px;backdrop-filter:blur(10px);border:1px solid #3b82f633}
+.back-link:hover{background:rgba(15,23,42,.95)}
+.dots{display:flex;gap:8px;justify-content:center;margin-top:8px}
+.dot{width:10px;height:10px;border-radius:50%;background:#334155;cursor:pointer;transition:all .2s}
+.dot.active{background:#3b82f6;transform:scale(1.3)}
+.dot:hover:not(.active){background:#475569}
+@media(max-width:600px){.slide{padding:80px 20px 120px}.slide-content h1{font-size:1.8rem}.slide-content li{font-size:.95rem}}
+</style>
+</head>
+<body>
+<a class="back-link" href="index.html">← Startseite</a>
+<div class="slide-container">
+<div class="header-bar"></div>
+<div class="slide" id="slideArea">
+<div class="slide-bg"></div>
+<div class="slide-content" id="slideContent"></div>
+</div>
+</div>
+<div class="nav">
+<button id="prevBtn" onclick="go(-1)">◀ Zurück</button>
+<div style="text-align:center">
+<div class="counter" id="counter"></div>
+<div class="dots" id="dots"></div>
+</div>
+<button id="nextBtn" onclick="go(1)">Weiter ▶</button>
+</div>
+<script>
+const slides=[{"title": "🐧 Kaiserpinguin", "subtitle": "Aptenodytes forsteri", "content": "Der Überlebenskünstler der Antarktis", "is_title": true}, {"title": "📋 Steckbrief", "bullets": ["<b>Größe:</b> 100–130 cm — größte Pinguinart!", "<b>Gewicht:</b> 22–45 kg (vor der Mauser bis zu 45 kg)", "<b>Alter:</b> 15–20 Jahre in der Wildnis (max. ≈40)", "<b>Verbreitung:</b> Rund um den antarktischen Kontinent", "<b>Kolonien:</b> ≈50 Brutkolonien, größte mit &gt;25.000 Paaren", "<b>Population:</b> Geschätzt 595.000 Tiere"]}, {"title": "❄️ Lebensraum", "bullets": ["Die Antarktis — kältester, windreichster Kontinent der Erde", "Brüten auf dem festen Meereis bei Temperaturen bis -60°C", "Windgeschwindigkeiten bis 200 km/h", "Nahrungssuche im Ozean: Tauchtiefen bis 565 m!", "Tauchdauer bis 22 Minuten auf einem Atemzug", "Nordwärts wandernd auf Eisschollen im Winter"]}, {"title": "🐟 Ernährung", "bullets": ["Hauptnahrung: Antarktischer Silberfisch (Pleuragramma antarcticum)", "Auch: Krill, Tintenfische, andere kleine Fische", "Jagd in Gruppen — koordinierte Tauchgänge", "Bis zu 150 km Wanderung zur Nahrungssuche", "Spezielle Zunge mit Widerhaken zum Festhalten von Fischen", "Erwachsene fressen 2–3 kg pro Tag, vor der Mauser mehr"]}, {"title": "💕 Fortpflanzung", "bullets": ["Paarungszeit im antarktischen Winter (März–April)", "Männchen brütet das Ei 65 Tage auf den Füßen — bei -60°C!", "Währenddessen fastet das Männchen ≈115 Tage (verliert 45% Körpergewicht)", "Weibchen wandert zum Ozean und zurück ≈150 km", "Küken schlüpfen im August — gerade als das Eis schmilzt", "„Kindergarten&quot;-System: Küken schließen sich zu Gruppen zusammen"]}, {"title": "⭐ Besonderheiten", "bullets": ["Einziger Vogel, der auf dem Meereis der Antarktis brütet", "Überleben durch: Wärmekreislauf in Füßen, dicke Fettschicht, Gefieder", "4 Schichten Federn — mehr als jede andere Vogelart", "Warteschlangen zum Atmen in Eisrissen", "Film „March of the Penguins&quot; (2005) machte sie weltberühmt", "Können Meerwasser trinken — spezielle Drüse filtert Salz"]}, {"title": "⚠️ Gefährdung", "bullets": ["<b>IUCN-Status:</b> Near Threatened (NT) — Trend abnehmend", "Klimawandel: Meereis schmilzt früher — Küken sterben", "2016: 10.000 Küken in der Halley Bay Kolonie ertranken", "Überfischung konkurriert mit Nahrungsangebot", "Neue Studie: Bei +2°C könnten 31% der Kolonien verschwinden", "Schutz: Antarctic Treaty, CCAMLR"]}, {"title": "📚 Quellen", "bullets": ["IUCN Red List: iucnredlist.org/species/22697752", "Wikipedia — Kaiserpinguin (Aptenodytes forsteri)", "British Antarctic Survey — Emperor Penguin Research", "Jenouvrier et al. (2020) — Climate change impact study", "March of the Penguins — Warner Independent Pictures"]}];
+let cur=0;
+function render(){
+const s=slides[cur];
+const el=document.getElementById('slideContent');
+if(s.is_title){
+el.innerHTML=`<h1>${s.title}</h1><p class="latin">${s.subtitle}</p><p class="tagline">${s.content}</p>`;
+} else {
+el.innerHTML=`<h1>${s.title}</h1><ul>${s.bullets.map(b=>'<li>'+b+'</li>').join('')}</ul>`;
+}
+document.getElementById('counter').textContent=`${cur+1} / ${slides.length}`;
+document.getElementById('prevBtn').disabled=cur===0;
+document.getElementById('nextBtn').disabled=cur===slides.length-1;
+document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===cur));
+}
+function go(dir){cur=Math.max(0,Math.min(slides.length-1,cur+dir));render();window.scrollTo(0,0);}
+function goSlide(i){cur=i;render();window.scrollTo(0,0);}
+const dotsEl=document.getElementById('dots');
+slides.forEach((_,i)=>{const d=document.createElement('span');d.className='dot';d.onclick=()=>goSlide(i);dotsEl.appendChild(d);});
+render();
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' ')go(1);if(e.key==='ArrowLeft')go(-1);});
+</script>
+</body>
+</html>

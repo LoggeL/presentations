@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🐾 Tier-Welt | Entdecke 6 faszinierende Tiere</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
+.hero{text-align:center;padding:60px 20px 40px;background:linear-gradient(135deg,#1e293b 0%,#0f172a 50%,#1e293b 100%)}
+.hero h1{font-size:2.8rem;margin-bottom:8px;background:linear-gradient(135deg,#60a5fa,#a78bfa,#f472b6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{font-size:1.1rem;color:#94a3b8;max-width:600px;margin:0 auto}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:24px;max-width:1200px;margin:40px auto;padding:0 24px}
+.card{background:#1e293b;border-radius:16px;overflow:hidden;cursor:pointer;transition:transform .25s,box-shadow .25s;border:1px solid #334155}
+.card:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(0,0,0,.4)}
+.card-emoji{font-size:4rem;padding:32px 0 16px;text-align:center;background:var(--card-gradient)}
+.card-body{padding:24px}
+.card-body h2{font-size:1.5rem;margin-bottom:8px;color:#f1f5f9}
+.card-body p{color:#94a3b8;line-height:1.6;font-size:.95rem}
+.card-tag{display:inline-block;padding:4px 12px;border-radius:20px;font-size:.8rem;margin-top:12px;background:var(--tag-bg);color:var(--tag-color)}
+footer{text-align:center;padding:40px;color:#475569;font-size:.85rem}
+</style>
+</head>
+<body>
+<div class="hero">
+<h1>🐾 Tier-Welt</h1>
+<p>6 faszinierende Tiere — von der Savanne bis zum Ozean. Klicke auf eine Karte, um die Präsentation zu starten!</p>
+</div>
+<div class="grid">
+
+<div class="card" onclick="location.href='braunbaer.html'" style="--card-gradient:linear-gradient(135deg,#14532d,#166534);--tag-bg:#166534;--tag-color:#86efac">
+<div class="card-emoji">🐻</div>
+<div class="card-body">
+<h2>Braunbär</h2>
+<p>Der König des Waldes — bis zu 600 kg Muskeln und trotzdem ein Meister im Lachsfischen.</p>
+<span class="card-tag">🌲 Wald / Europa & Nordamerika</span>
+</div>
+</div>
+
+<div class="card" onclick="location.href='weisser_hai.html'" style="--card-gradient:linear-gradient(135deg,#0c4a6e,#0369a1);--tag-bg:#0369a1;--tag-color:#7dd3fc">
+<div class="card-emoji">🦈</div>
+<div class="card-body">
+<h2>Weißer Hai</h2>
+<p>Das perfekte Raubtier der Ozeane — 300 Zähne, elektromagnetische Sensoren und bis zu 7 Meter lang.</p>
+<span class="card-tag">🌊 Ozean / Weltweit</span>
+</div>
+</div>
+
+<div class="card" onclick="location.href='koenigskobra.html'" style="--card-gradient:linear-gradient(135deg,#78350f,#92400e);--tag-bg:#92400e;--tag-color:#fbbf24">
+<div class="card-emoji">🐍</div>
+<div class="card-body">
+<h2>Königskobra</h2>
+<p>Der längste Giftschlange der Welt — ihr Gift kann einen Elefanten töten.</p>
+<span class="card-tag">🏜️ Dschungel / Südostasien</span>
+</div>
+</div>
+
+<div class="card" onclick="location.href='kaiserpinguin.html'" style="--card-gradient:linear-gradient(135deg,#1e3a5f,#2563eb);--tag-bg:#1e3a5f;--tag-color:#bfdbfe">
+<div class="card-emoji">🐧</div>
+<div class="card-body">
+<h2>Kaiserpinguin</h2>
+<p>Der größte Pinguin — brütet bei -60°C im antarktischen Winter. Väter tragen das Ei 65 Tage auf den Füßen.</p>
+<span class="card-tag">❄️ Antarktis</span>
+</div>
+</div>
+
+<div class="card" onclick="location.href='loewe.html'" style="--card-gradient:linear-gradient(135deg,#713f12,#a16207);--tag-bg:#a16207;--tag-color:#fde68a">
+<div class="card-emoji">🦁</div>
+<div class="card-body">
+<h2>Löwe</h2>
+<p>Der König der Tiere — das einzige Katzen-Geschlecht, das in Rudeln lebt. Brüllen ist bis 8 km hörbar.</p>
+<span class="card-tag">🌾 Savanne / Afrika</span>
+</div>
+</div>
+
+<div class="card" onclick="location.href='pfeilgiftfrosch.html'" style="--card-gradient:linear-gradient(135deg,#064e3b,#059669);--tag-bg:#059669;--tag-color:#6ee7b7">
+<div class="card-emoji">🐸</div>
+<div class="card-body">
+<h2>Pfeilgiftfrosch</h2>
+<p>Klein aber extrem giftig — ein einziger Frosch hat genug Gift für 10 Menschen. Warnfarben als Überlebensstrategie.</p>
+<span class="card-tag">🌴 Regenwald / Südamerika</span>
+</div>
+</div>
+
+</div>
+<footer>Tier-Welt — Erstellt von Tobias 🐾 | Daten: IUCN, WWF, Wikipedia</footer>
+</body>
+</html>

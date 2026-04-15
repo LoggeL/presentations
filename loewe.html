@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🦁 Löwe | Tier-Welt</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#0f172a;color:#e2e8f0;overflow-x:hidden;min-height:100vh}
+.slide-container{width:100%;min-height:100vh;display:flex;flex-direction:column}
+.header-bar{height:6px;background:linear-gradient(135deg,#713f12,#a16207)}
+.slide{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:60px 40px 120px;position:relative;min-height:calc(100vh - 6px)}
+.slide-bg{position:absolute;inset:0;background:linear-gradient(135deg,#713f12,#a16207);opacity:.12}
+.slide-content{position:relative;z-index:1;max-width:800px;width:100%;text-align:center}
+.slide-content h1{font-size:2.4rem;margin-bottom:16px;color:#fde68a}
+.slide-content .latin{font-style:italic;color:#94a3b8;font-size:1.15rem;margin-bottom:12px}
+.slide-content .tagline{font-size:1.4rem;color:#cbd5e1}
+.slide-content ul{text-align:left;list-style:none;max-width:720px;margin:0 auto}
+.slide-content li{padding:12px 0;font-size:1.05rem;line-height:1.7;border-bottom:1px solid rgba(30,41,59,.6)}
+.slide-content li::before{content:'▸ ';color:#eab308;font-weight:bold}
+.nav{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:16px 32px;background:rgba(30,41,59,.95);border-top:1px solid #334155;backdrop-filter:blur(12px);z-index:50}
+.nav button{background:#eab308;color:#0f172a;border:none;padding:12px 28px;border-radius:10px;font-size:1rem;cursor:pointer;font-weight:700;transition:all .2s}
+.nav button:hover:not(:disabled){transform:scale(1.05)}
+.nav button:disabled{opacity:.25;cursor:default}
+.counter{color:#94a3b8;font-size:.9rem}
+.back-link{position:fixed;top:20px;left:20px;z-index:10;color:#fde68a;text-decoration:none;font-size:.95rem;background:rgba(15,23,42,.85);padding:10px 18px;border-radius:10px;backdrop-filter:blur(10px);border:1px solid #eab30833}
+.back-link:hover{background:rgba(15,23,42,.95)}
+.dots{display:flex;gap:8px;justify-content:center;margin-top:8px}
+.dot{width:10px;height:10px;border-radius:50%;background:#334155;cursor:pointer;transition:all .2s}
+.dot.active{background:#eab308;transform:scale(1.3)}
+.dot:hover:not(.active){background:#475569}
+@media(max-width:600px){.slide{padding:80px 20px 120px}.slide-content h1{font-size:1.8rem}.slide-content li{font-size:.95rem}}
+</style>
+</head>
+<body>
+<a class="back-link" href="index.html">← Startseite</a>
+<div class="slide-container">
+<div class="header-bar"></div>
+<div class="slide" id="slideArea">
+<div class="slide-bg"></div>
+<div class="slide-content" id="slideContent"></div>
+</div>
+</div>
+<div class="nav">
+<button id="prevBtn" onclick="go(-1)">◀ Zurück</button>
+<div style="text-align:center">
+<div class="counter" id="counter"></div>
+<div class="dots" id="dots"></div>
+</div>
+<button id="nextBtn" onclick="go(1)">Weiter ▶</button>
+</div>
+<script>
+const slides=[{"title": "🦁 Löwe", "subtitle": "Panthera leo", "content": "Der König der Tiere", "is_title": true}, {"title": "📋 Steckbrief", "bullets": ["<b>Größe:</b> Männchen 1,7–2,5 m + 1 m Schwanz; Schulterhöhe 1,2 m", "<b>Gewicht:</b> Männchen 150–250 kg, Weibchen 120–180 kg", "<b>Alter:</b> 12–16 Jahre in der Wildnis", "<b>Verbreitung:</b> Subsahara-Afrika, kleine Population in Indien (Gir)", "<b>Population:</b> ≈23.000 in Afrika, ≈674 in Indien", "<b>Familie:</b> Katzen (Felidae) — einzige soziale Katzenart"]}, {"title": "🌾 Lebensraum", "bullets": ["Savannen, Grasland, offene Waldgebiete", "Bevorzugt Gebiete mit ausreichend Beute und Wasser", "Territorium: 20–400 km² je nach Beutedichte", "Serengeti, Masai Mara, Kruger Nationalpark", "Gir-Nationalpark (Indien): Letzte asiatische Löwen", "Ausgerottet in: Nordafrika, Naher Osten, Europa (→ 100 v. Chr.)"]}, {"title": "🥩 Ernährung", "bullets": ["Apex-Prädatoren — an der Spitze der Nahrungskette", "Beute: Zebras, Gnus, Antilopen, Büffel, junge Elefanten", "Weibchen jagen in koordinierten Gruppen", "Männchen beteiligen sich bei großer Beute (Büffel)", "Ein Löwe frisst bis zu 40 kg auf einmal, dann fastet er Tage", "Aasfressung: ≈50% der Nahrung kann aus Diebstahl stammen"]}, {"title": "💕 Fortpflanzung", "bullets": ["Rudel: 1–3 Männchen, 5–15 verwandte Weibchen + Jungtiere", "Neue Männchen übernehmen Rudel → Infantizid", "Paarung: bis zu 40-mal pro Tag während der Empfängnisbereitschaft", "Tragzeit: ≈110 Tage, 1–4 Welpen", "Welpen: blind bei Geburt, 2–3 Wochen zum Sehen", "Alle Weibchen säugen gemeinsam — „Communal Nursing&quot;"]}, {"title": "⭐ Besonderheiten", "bullets": ["Brüllen ist bis 8 km weit hörbar — Reviermarken-Signal", "Mähne signalisiert Gesundheit und Testosteron-Level", "Schlafen 16–20 Stunden pro Tag — energieeffizient!", "Nur Katze mit ausgeprägtem Geschlechtsdimorphismus (Mähne)", "Können nachts 6-mal besser sehen als Menschen", "Tsavo-Löwen (mähnenlos) — berüchtigte Man-Eaters von 1898"]}, {"title": "⚠️ Gefährdung", "bullets": ["<b>IUCN-Status:</b> Gefährdet (VU)", "Bestand sank von 200.000 (1975) auf ≈23.000 heute", "Lebensraumverlust: Mensch-Wildtier-Konflikt", "Vergiftung durch Viehhalter (Retaliatory Killing)", "Trophy-Jagd: immer noch legal in einigen afrikanischen Ländern", "Wilderei für Knochen (traditionelle Medizin)"]}, {"title": "📚 Quellen", "bullets": ["IUCN Red List: iucnredlist.org/species/15951", "Wikipedia — Löwe (Panthera leo)", "Panthera — Lion Conservation Program", "BBC Earth — Lion Behaviour Studies", "Gir National Park — Asiatic Lion Census 2020"]}];
+let cur=0;
+function render(){
+const s=slides[cur];
+const el=document.getElementById('slideContent');
+if(s.is_title){
+el.innerHTML=`<h1>${s.title}</h1><p class="latin">${s.subtitle}</p><p class="tagline">${s.content}</p>`;
+} else {
+el.innerHTML=`<h1>${s.title}</h1><ul>${s.bullets.map(b=>'<li>'+b+'</li>').join('')}</ul>`;
+}
+document.getElementById('counter').textContent=`${cur+1} / ${slides.length}`;
+document.getElementById('prevBtn').disabled=cur===0;
+document.getElementById('nextBtn').disabled=cur===slides.length-1;
+document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===cur));
+}
+function go(dir){cur=Math.max(0,Math.min(slides.length-1,cur+dir));render();window.scrollTo(0,0);}
+function goSlide(i){cur=i;render();window.scrollTo(0,0);}
+const dotsEl=document.getElementById('dots');
+slides.forEach((_,i)=>{const d=document.createElement('span');d.className='dot';d.onclick=()=>goSlide(i);dotsEl.appendChild(d);});
+render();
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' ')go(1);if(e.key==='ArrowLeft')go(-1);});
+</script>
+</body>
+</html>

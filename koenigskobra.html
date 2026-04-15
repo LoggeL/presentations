@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🐍 Königskobra | Tier-Welt</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#0f172a;color:#e2e8f0;overflow-x:hidden;min-height:100vh}
+.slide-container{width:100%;min-height:100vh;display:flex;flex-direction:column}
+.header-bar{height:6px;background:linear-gradient(135deg,#78350f,#92400e)}
+.slide{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:60px 40px 120px;position:relative;min-height:calc(100vh - 6px)}
+.slide-bg{position:absolute;inset:0;background:linear-gradient(135deg,#78350f,#92400e);opacity:.12}
+.slide-content{position:relative;z-index:1;max-width:800px;width:100%;text-align:center}
+.slide-content h1{font-size:2.4rem;margin-bottom:16px;color:#fbbf24}
+.slide-content .latin{font-style:italic;color:#94a3b8;font-size:1.15rem;margin-bottom:12px}
+.slide-content .tagline{font-size:1.4rem;color:#cbd5e1}
+.slide-content ul{text-align:left;list-style:none;max-width:720px;margin:0 auto}
+.slide-content li{padding:12px 0;font-size:1.05rem;line-height:1.7;border-bottom:1px solid rgba(30,41,59,.6)}
+.slide-content li::before{content:'▸ ';color:#f59e0b;font-weight:bold}
+.nav{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:16px 32px;background:rgba(30,41,59,.95);border-top:1px solid #334155;backdrop-filter:blur(12px);z-index:50}
+.nav button{background:#f59e0b;color:#0f172a;border:none;padding:12px 28px;border-radius:10px;font-size:1rem;cursor:pointer;font-weight:700;transition:all .2s}
+.nav button:hover:not(:disabled){transform:scale(1.05)}
+.nav button:disabled{opacity:.25;cursor:default}
+.counter{color:#94a3b8;font-size:.9rem}
+.back-link{position:fixed;top:20px;left:20px;z-index:10;color:#fbbf24;text-decoration:none;font-size:.95rem;background:rgba(15,23,42,.85);padding:10px 18px;border-radius:10px;backdrop-filter:blur(10px);border:1px solid #f59e0b33}
+.back-link:hover{background:rgba(15,23,42,.95)}
+.dots{display:flex;gap:8px;justify-content:center;margin-top:8px}
+.dot{width:10px;height:10px;border-radius:50%;background:#334155;cursor:pointer;transition:all .2s}
+.dot.active{background:#f59e0b;transform:scale(1.3)}
+.dot:hover:not(.active){background:#475569}
+@media(max-width:600px){.slide{padding:80px 20px 120px}.slide-content h1{font-size:1.8rem}.slide-content li{font-size:.95rem}}
+</style>
+</head>
+<body>
+<a class="back-link" href="index.html">← Startseite</a>
+<div class="slide-container">
+<div class="header-bar"></div>
+<div class="slide" id="slideArea">
+<div class="slide-bg"></div>
+<div class="slide-content" id="slideContent"></div>
+</div>
+</div>
+<div class="nav">
+<button id="prevBtn" onclick="go(-1)">◀ Zurück</button>
+<div style="text-align:center">
+<div class="counter" id="counter"></div>
+<div class="dots" id="dots"></div>
+</div>
+<button id="nextBtn" onclick="go(1)">Weiter ▶</button>
+</div>
+<script>
+const slides=[{"title": "🐍 Königskobra", "subtitle": "Ophiophagus hannah", "content": "Die längste Giftschlange der Welt", "is_title": true}, {"title": "📋 Steckbrief", "bullets": ["<b>Größe:</b> 3–5,5 m (max. 5,85 m — längste Giftschlange!)", "<b>Gewicht:</b> 5–10 kg", "<b>Alter:</b> 17–20 Jahre in der Wildnis", "<b>Verbreitung:</b> Süd- und Südostasien (Indien bis Indonesien)", "<b>Name:</b> Ophiophagus = „Schlangenesser&quot; — frisst andere Schlangen", "<b>Familie:</b> Giftnattern (Elapidae)"]}, {"title": "🏜️ Lebensraum", "bullets": ["Dichte tropische und subtropische Wälder", "Bevorzugt in der Nähe von Gewässern und Bambushainen", "Von Meereshöhe bis 2.000 m", "Höhlen, Termitenbauten und Baumhöhlen als Verstecke", "In Indien, Bangladesch, Myanmar, Thailand, Malaysia, Indonesien", "Meidet trockene Wüsten — braucht hohe Luftfeuchtigkeit"]}, {"title": "🐀 Ernährung", "bullets": ["Spezialist: Frisst fast ausschließlich andere Schlangen!", "Beute: Kobras, Kraits, Rattenschlangen, Netzpythons (juvenile)", "Gelegentlich: Echsen und kleine Säugetiere", "Aktiver Jäger — spürt Beute mit der Zunge (Jacobson-Organ)", "Kann andere Giftschlangen fressen und ist immun gegen deren Gift", "Nach dem Biss wartet sie, bis das Gift wirkt"]}, {"title": "💕 Fortpflanzung", "bullets": ["Einzige Schlangenart, die ein Nest baut!", "Männchen und Weibchen bauen gemeinsam ein Blätternest", "Gelege: 20–50 Eier", "Das Weibchen bewacht das Nest aggressiv bis zum Schlüpfen", "Inkubation: 60–80 Tage", "Jungschlangen sind 45–55 cm und haben bereits voll wirksames Gift"]}, {"title": "⭐ Besonderheiten", "bullets": ["Ein Biss enthält genug Gift (≈7 ml), um einen Elefanten zu töten", "Neurotoxin wirkt auf das Nervensystem — Lähmung und Atemstillstand", "Kann sich aufrichten und einem Menschen direkt in die Augen blicken", "Brüllt leise — tiefe knurrende Laute als Warnung", "In Thailand werden Königs-Kobras-Schlangenbeschwörer respektiert", "Antiserum existiert, muss aber schnell verabreicht werden"]}, {"title": "⚠️ Gefährdung", "bullets": ["<b>IUCN-Status:</b> Gefährdet (VU)", "Bestand sinkt — Hauptursache: Lebensraumverlust", "Abholzung der tropischen Wälder für Palmöl-Plantagen", "Gefangennahme für traditionelle Medizin und Haut", "Schlangenbeschwörer-Tradition entfernt Tiere aus der Wildnis", "Straßenverkehr: viele Tiere werden überfahren"]}, {"title": "📚 Quellen", "bullets": ["IUCN Red List: iucnredlist.org/species/177544", "Wikipedia — Königskobra (Ophiophagus hannah)", "National Geographic — King Cobra", "Toxicon — King Cobra Venom Research", "Save The Snake — King Cobra Conservation"]}];
+let cur=0;
+function render(){
+const s=slides[cur];
+const el=document.getElementById('slideContent');
+if(s.is_title){
+el.innerHTML=`<h1>${s.title}</h1><p class="latin">${s.subtitle}</p><p class="tagline">${s.content}</p>`;
+} else {
+el.innerHTML=`<h1>${s.title}</h1><ul>${s.bullets.map(b=>'<li>'+b+'</li>').join('')}</ul>`;
+}
+document.getElementById('counter').textContent=`${cur+1} / ${slides.length}`;
+document.getElementById('prevBtn').disabled=cur===0;
+document.getElementById('nextBtn').disabled=cur===slides.length-1;
+document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===cur));
+}
+function go(dir){cur=Math.max(0,Math.min(slides.length-1,cur+dir));render();window.scrollTo(0,0);}
+function goSlide(i){cur=i;render();window.scrollTo(0,0);}
+const dotsEl=document.getElementById('dots');
+slides.forEach((_,i)=>{const d=document.createElement('span');d.className='dot';d.onclick=()=>goSlide(i);dotsEl.appendChild(d);});
+render();
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' ')go(1);if(e.key==='ArrowLeft')go(-1);});
+</script>
+</body>
+</html>

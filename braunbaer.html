@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🐻 Braunbär | Tier-Welt</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#0f172a;color:#e2e8f0;overflow-x:hidden;min-height:100vh}
+.slide-container{width:100%;min-height:100vh;display:flex;flex-direction:column}
+.header-bar{height:6px;background:linear-gradient(135deg,#14532d,#166534)}
+.slide{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:60px 40px 120px;position:relative;min-height:calc(100vh - 6px)}
+.slide-bg{position:absolute;inset:0;background:linear-gradient(135deg,#14532d,#166534);opacity:.12}
+.slide-content{position:relative;z-index:1;max-width:800px;width:100%;text-align:center}
+.slide-content h1{font-size:2.4rem;margin-bottom:16px;color:#86efac}
+.slide-content .latin{font-style:italic;color:#94a3b8;font-size:1.15rem;margin-bottom:12px}
+.slide-content .tagline{font-size:1.4rem;color:#cbd5e1}
+.slide-content ul{text-align:left;list-style:none;max-width:720px;margin:0 auto}
+.slide-content li{padding:12px 0;font-size:1.05rem;line-height:1.7;border-bottom:1px solid rgba(30,41,59,.6)}
+.slide-content li::before{content:'▸ ';color:#22c55e;font-weight:bold}
+.nav{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:16px 32px;background:rgba(30,41,59,.95);border-top:1px solid #334155;backdrop-filter:blur(12px);z-index:50}
+.nav button{background:#22c55e;color:#0f172a;border:none;padding:12px 28px;border-radius:10px;font-size:1rem;cursor:pointer;font-weight:700;transition:all .2s}
+.nav button:hover:not(:disabled){transform:scale(1.05)}
+.nav button:disabled{opacity:.25;cursor:default}
+.counter{color:#94a3b8;font-size:.9rem}
+.back-link{position:fixed;top:20px;left:20px;z-index:10;color:#86efac;text-decoration:none;font-size:.95rem;background:rgba(15,23,42,.85);padding:10px 18px;border-radius:10px;backdrop-filter:blur(10px);border:1px solid #22c55e33}
+.back-link:hover{background:rgba(15,23,42,.95)}
+.dots{display:flex;gap:8px;justify-content:center;margin-top:8px}
+.dot{width:10px;height:10px;border-radius:50%;background:#334155;cursor:pointer;transition:all .2s}
+.dot.active{background:#22c55e;transform:scale(1.3)}
+.dot:hover:not(.active){background:#475569}
+@media(max-width:600px){.slide{padding:80px 20px 120px}.slide-content h1{font-size:1.8rem}.slide-content li{font-size:.95rem}}
+</style>
+</head>
+<body>
+<a class="back-link" href="index.html">← Startseite</a>
+<div class="slide-container">
+<div class="header-bar"></div>
+<div class="slide" id="slideArea">
+<div class="slide-bg"></div>
+<div class="slide-content" id="slideContent"></div>
+</div>
+</div>
+<div class="nav">
+<button id="prevBtn" onclick="go(-1)">◀ Zurück</button>
+<div style="text-align:center">
+<div class="counter" id="counter"></div>
+<div class="dots" id="dots"></div>
+</div>
+<button id="nextBtn" onclick="go(1)">Weiter ▶</button>
+</div>
+<script>
+const slides=[{"title": "🐻 Braunbär", "subtitle": "Ursus arctos", "content": "Der König des Waldes", "is_title": true}, {"title": "📋 Steckbrief", "bullets": ["<b>Größe:</b> 1,7–2,8 m (Kopf-Rumpf), Schulterhöhe bis 1,5 m", "<b>Gewicht:</b> 100–600 kg (Männchen deutlich schwerer)", "<b>Alter:</b> 20–30 Jahre in der Wildnis, bis 47 in Gefangenschaft", "<b>Verbreitung:</b> Europa, Asien, Nordamerika — über 200.000 Individuen", "<b>Unterarten:</b> Grizzly, Kodiakbär, Europäischer Braunbär, Syrischer Braunbär", "<b>Ordnung:</b> Raubtiere (Carnivora), Familie Bären (Ursidae)"]}, {"title": "🌲 Lebensraum", "bullets": ["Bevorzugt dichte Wälder mit Zugang zu Flüssen und Beerensträuchern", "Von Meereshöhe bis 5.000 m (Himalaya)", "Braucht großes Revier: 50–4.000 km² je nach Nahrungsangebot", "Winterruhe (kein echter Winterschlaf) in Höhlen — bis zu 7 Monate", "In Europa: Karpaten, Skandinavien, Russland, Pyrenäen", "In Nordamerika: Alaska, Rocky Mountains, Yellowstone"]}, {"title": "🐟 Ernährung", "bullets": ["Omnivor — 70–90% pflanzliche Nahrung (Beeren, Nüsse, Gräser, Wurzeln)", "Fleisch: Fisch (Lachswanderung!), Insekten, kleine Säugetiere", "Rehe und Elche als Gelegenheitsbeute", "Bis zu 40 kg Nahrung pro Tag vor der Winterruhe (Hyperphagie)", "Nehmen 30–40% Körpergewicht im Herbst zu", "Ausgezeichneter Fischer — fängt Lachse im fliegenden Sprung"]}, {"title": "💕 Fortpflanzung", "bullets": ["Paarungszeit: Mai–Juli", "Verzögerte Einnistung: Embryo entwickelt sich erst im Winter", "1–3 Welpen pro Wurf, blind und nackt bei Geburt (≈500 g)", "Säugezeit: 6–8 Monate in der Winterruhe-Höhle", "Welpen bleiben 2–3 Jahre bei der Mutter", "Geschlechtsreife mit 4–6 Jahren"]}, {"title": "⭐ Besonderheiten", "bullets": ["Können bis zu 50 km/h laufen — schneller als ein Mensch sprintet!", "Ausgezeichneter Geruchssinn — riechen Nahrung aus 30 km Entfernung", "Kodiakbär ist das größte landlebende Raubtier der Welt (bis 780 kg)", "Können schwimmen und klettern (besonders junge Bären)", "Bärentatzen haben 5 Zehen mit nicht-einziehbaren Krallen", "In Japan leben Braunbären und Schwarzbären nebeneinander"]}, {"title": "⚠️ Gefährdung", "bullets": ["<b>IUCN-Status:</b> Nicht gefährdet (LC) — aber regional stark unterschiedlich", "In Deutschland: Ausgestorben (1856), in Italien &lt;50 Tiere", "Lebensraumverlust durch Abholzung und Siedlungsbau", "Konflikte mit Menschen (Müll, Viehwirtschaft)", "Trophy-Jagd in Nordamerika und Russland", "Klimawandel beeinflusst Nahrungsverfügbarkeit"]}, {"title": "📚 Quellen", "bullets": ["IUCN Red List: iucnredlist.org/species/41688", "WWF — Brown Bear Species Overview", "Wikipedia — Braunbär (Ursus arctos)", "National Geographic — Brown Bear Facts", "Bärennews — European Brown Bear Conservation"]}];
+let cur=0;
+function render(){
+const s=slides[cur];
+const el=document.getElementById('slideContent');
+if(s.is_title){
+el.innerHTML=`<h1>${s.title}</h1><p class="latin">${s.subtitle}</p><p class="tagline">${s.content}</p>`;
+} else {
+el.innerHTML=`<h1>${s.title}</h1><ul>${s.bullets.map(b=>'<li>'+b+'</li>').join('')}</ul>`;
+}
+document.getElementById('counter').textContent=`${cur+1} / ${slides.length}`;
+document.getElementById('prevBtn').disabled=cur===0;
+document.getElementById('nextBtn').disabled=cur===slides.length-1;
+document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===cur));
+}
+function go(dir){cur=Math.max(0,Math.min(slides.length-1,cur+dir));render();window.scrollTo(0,0);}
+function goSlide(i){cur=i;render();window.scrollTo(0,0);}
+const dotsEl=document.getElementById('dots');
+slides.forEach((_,i)=>{const d=document.createElement('span');d.className='dot';d.onclick=()=>goSlide(i);dotsEl.appendChild(d);});
+render();
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' ')go(1);if(e.key==='ArrowLeft')go(-1);});
+</script>
+</body>
+</html>
