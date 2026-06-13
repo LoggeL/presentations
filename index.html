@@ -12,7 +12,7 @@ body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:#0a0e1a;c
 .hero{text-align:center;padding:60px 20px 30px;background:linear-gradient(180deg,rgba(99,102,241,.08) 0%,transparent 100%)}
 .hero h1{font-size:2.8rem;font-weight:800;margin-bottom:8px;background:linear-gradient(135deg,#60a5fa,#a78bfa,#f472b6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-.5px}
 .hero p{font-size:1.05rem;color:#64748b;max-width:600px;margin:0 auto}
-.tabs{display:flex;justify-content:center;gap:8px;margin:32px auto 0;max-width:420px;padding:0 20px}
+.tabs{display:flex;justify-content:center;gap:8px;margin:32px auto 0;max-width:640px;padding:0 20px}
 .tab{flex:1;padding:14px 20px;border:1px solid rgba(255,255,255,.08);border-radius:14px;background:rgba(30,41,59,.4);color:#94a3b8;font-size:1rem;font-weight:600;cursor:pointer;text-align:center;transition:all .3s;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
 .tab:hover{background:rgba(30,41,59,.6);color:#e2e8f0}
 .tab.active{background:linear-gradient(135deg,rgba(99,102,241,.2),rgba(139,92,246,.15));border-color:rgba(139,92,246,.3);color:#e2e8f0;box-shadow:0 0 20px rgba(139,92,246,.15)}
@@ -40,10 +40,27 @@ footer{text-align:center;padding:40px;color:#334155;font-size:.82rem}
 <p>Tiere & Sportarten - interaktive Praesentationen mit Bildern, Fakten und Fun Facts. Klicke auf eine Karte!</p>
 </div>
 <div class="tabs">
-<div class="tab active" onclick="switchTab('animals')">Tiere</div>
+<div class="tab active" onclick="switchTab('math')">Mathe</div>
+<div class="tab" onclick="switchTab('animals')">Tiere</div>
 <div class="tab" onclick="switchTab('sports')">Sportarten</div>
 </div>
-<div class="section active" id="section-animals">
+
+<div class="section active" id="section-math">
+<div class="section-title">Mathe kurz erklärt</div>
+<div class="grid">
+<div class="card" onclick="location.href='bernoulli-binomialverteilung.html'" style="--accent:#60a5fa;--accent-light:#bfdbfe;--c1:#1e3a8a;--c2:#2563eb">
+<div class="card-glow"></div>
+<div class="card-emoji">🎲</div>
+<div class="card-body">
+<h2>Bernoulli & Binomialverteilung</h2>
+<p>Der Unterschied zwischen einem Ja/Nein-Versuch, einer Bernoulli-Kette und dem Zaehlen von Treffern.</p>
+<span class="card-tag">📊 Wahrscheinlichkeit</span>
+</div>
+</div>
+</div>
+</div>
+
+<div class="section" id="section-animals">
 <div class="section-title">6 faszinierende Tiere - von der Savanne bis zum Ozean</div>
 <div class="grid">
 <div class="card" onclick="location.href='braunbaer.html'" style="--accent:#22c55e;--accent-light:#86efac;--c1:#14532d;--c2:#166534">
@@ -202,11 +219,14 @@ footer{text-align:center;padding:40px;color:#334155;font-size:.82rem}
 function switchTab(tab){
 document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
 document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-if(tab==='animals'){
+if(tab==='math'){
 document.querySelectorAll('.tab')[0].classList.add('active');
+document.getElementById('section-math').classList.add('active');
+} else if(tab==='animals'){
+document.querySelectorAll('.tab')[1].classList.add('active');
 document.getElementById('section-animals').classList.add('active');
 } else {
-document.querySelectorAll('.tab')[1].classList.add('active');
+document.querySelectorAll('.tab')[2].classList.add('active');
 document.getElementById('section-sports').classList.add('active');
 }
 window.scrollTo({top:0,behavior:'smooth'});
